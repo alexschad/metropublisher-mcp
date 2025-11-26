@@ -76,9 +76,13 @@ Get Latitude and Longitude for a location name from Nominatim.
 
 ## Available Prompts
 
-### exportLocations — wrapper to fetch, collect and format locations into an export
+### exportLocations
 
-### createLocationData — helper prompt for generating cclocation_data.json (used during manual workflows)
+Wrapper to fetch, collect and format locations into an export
+
+### createLocationData
+
+Helper prompt for generating cclocation_data.json (used during manual workflows)
 
 ## Environment variables (.env)
 
