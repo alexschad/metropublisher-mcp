@@ -91,4 +91,4 @@ Set these environment variables in your '.env' file:
 - PORT — Optional. Port the demo server listens on. Default used by the code is `3000` when PORT is not set.
 - MP_INSTANCE_ID — Metro Publisher instance id
 - MP_API_KEY / MP_API_SECRET — API credentials for your Metro Publisher instance.
-- GEONAME_USERNAME — GeoNames username used by `get_geoname_data` to get the geoname_id that is required to add locations to metropublisher. You can sign up for geonames.org here: https://www.geonames.org/login
+- GEONAME_USERNAME — GeoNames username used by `get_geoname_data` to get a geoname_id for a location. The geoname is required to add locations to metropublisher. You can sign up for geonames.org here: https://www.geonames.org/login
