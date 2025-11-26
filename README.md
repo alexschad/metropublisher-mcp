@@ -1,4 +1,4 @@
-# Metro Publisher MCP serevr
+# MCP Serevr for Metro Publisher
 
 A server that exposes helpful Metro Publisher tools via a Model Context Protocol (MCP) server. Use it to query Metro Publisher locations, fetch location details, add locations, and export data for WordPress or other CMS workflows.
 It also exposes helper tools to get a geoname id and latitude and longitude for a location.
@@ -25,24 +25,64 @@ npm run server:inspect
 
 What the server exposes:
 
-tools:
+## Available Tools
 
-- add_mp_location — create a new Metro Publisher location (title, urlname, coords, address, contact, content, ...)
-- get_mp_locations — list locations (paginated)
-- get_mp_location_details — fetch the full detail object for a location
-- get_geoname_data — fetch GeoNames metadata
-- get_nominatim_data — fetch Nominatim geocoding results
+### add_mp_location
 
-prompts:
+Add a new Metro Publisher location.
 
-- exportLocations — wrapper to fetch, collect and format locations into an export
-- createLocationData — helper prompt for generating cclocation_data.json (used during manual workflows)
+- **Parameters:**
+  - title (string, required) — Human-readable name of the location (e.g. "City Library").
+  - urlname (string, required) — URL-safe slug used for the public location URL (no spaces; e.g. "city-library").
+  - description (string, optional) — Short summary or tagline.
+  - latitude (number, optional) & longitude (number, optional) — Coordinates; provide both to set `coords` for the location.
+  - street (string, optional) — Street name.
+  - streetnumber (string, optional) — Street number or unit.
+  - pcode (string, optional) — Postal / ZIP code.
+  - geoname_id (number, optional) — GeoNames ID (used to connect Metro Publisher to GeoNames records).
+  - phone (string, optional) — Contact phone number.
+  - website (string, optional) — Website URL.
+  - email (string, optional) — Contact email address.
+  - fax (string, optional) — Fax number (if applicable).
+  - content (string, optional) — Longer HTML or text content for the location (the tool wraps this in a <p> tag when sending).
+
+### get_mp_locations
+
+List Metro Publisher locations (paginated).
+
+- **Parameters:**
+  - page: z.number(),
+
+### get_mp_location_details
+
+Get the details for a Metro Publisher location.
+
+- **Parameters:**
+  - uuid: z.string(),
+
+### get_geoname_data
+
+Get the geoname id, the longitude and the latitude for a location.
+
+- **Parameters:**
+  - location_name: z.string(),
+
+### get_nominatim_data
+
+Get Latitude and Longitude for a location name from Nominatim.
+
+- **Parameters:**
+  - location_name: z.string(),
+
+## Available Prompts
+
+### exportLocations — wrapper to fetch, collect and format locations into an export
+
+### createLocationData — helper prompt for generating cclocation_data.json (used during manual workflows)
 
 ## Environment variables (.env)
 
-Create a `.env` file in the repo root (do not commit it to source control). The MCP demo reads common variables via `dotenv`.
-
-Common variables used by this demo:
+Set these environment variables in your '.env' file:
 
 - PORT — Optional. Port the demo server listens on. Default used by the code is `3000` when PORT is not set.
 - MP_INSTANCE_ID — Metro Publisher instance id
