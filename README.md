@@ -1,12 +1,7 @@
 # metropublisher-mcp — Metro Publisher MCP demo & export tools
 
 A server that exposes helpful Metro Publisher tools via a Model Context Protocol (MCP) server. Use it to query Metro Publisher locations, fetch location details, add locations, and export data for WordPress or other CMS workflows.
-
-Quick goals
-
-- Run the MCP server locally and use the Inspector to call tools interactively
-- Export locations to JSON and an import-ready WordPress WXR XML file
-- Add new locations (e.g. from `cclocation_data.json`) into the Metro Publisher API using the `add_mp_location` tool
+It also exposes helper tools to get a geoname id and latitude and longitude for a location.
 
 Installation
 
@@ -14,14 +9,14 @@ Installation
 npm install
 ```
 
-Run locally (dev)
+Run locally
 
 ```bash
 # Starts the demo MCP server on http://localhost:3000/mcp
 npm run server:dev
 ```
 
-Open inspector UI (recommended)
+Open inspector UI
 
 ```bash
 # Launch the inspector tooling so you can interact with prompts & tools in a UI
