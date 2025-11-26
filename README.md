@@ -1,4 +1,4 @@
-# metropublisher-mcp — Metro Publisher MCP demo & export tools
+# Metro Publisher MCP serevr
 
 A server that exposes helpful Metro Publisher tools via a Model Context Protocol (MCP) server. Use it to query Metro Publisher locations, fetch location details, add locations, and export data for WordPress or other CMS workflows.
 It also exposes helper tools to get a geoname id and latitude and longitude for a location.
