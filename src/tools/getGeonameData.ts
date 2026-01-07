@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { config } from "dotenv";
-config();
+// import * as dotenv from "dotenv";
+// dotenv.config({ debug: false });
 
 const GEONAME_USERNAME = process.env.GEONAME_USERNAME;
 
@@ -31,7 +31,7 @@ export const getGeonameDataTool = (server: McpServer) => {
           headers: { "Content-Type": "application/json" },
         });
         const data = await result.json();
-        console.log("Geoname Data:", data);
+        console.error("Geoname Data:", data);
         const geonameId =
           data.totalResultsCount > 0 ? data.geonames[0].geonameId : null;
         const latitude =

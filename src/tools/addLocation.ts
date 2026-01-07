@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { retryFetch } from "../util";
+import { retryFetch } from "../util.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 const inputSchema = {
@@ -83,7 +83,7 @@ export const addLocationTool = (server: McpServer) => {
           "PUT",
           JSON.stringify(cleanedLocationData)
         );
-        console.log("Location created:", location);
+        console.error("Location created:", location);
         return {
           // MCP requires an array of content parts
           content: [

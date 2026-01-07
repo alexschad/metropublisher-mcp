@@ -12,7 +12,7 @@ npm install
 Run locally
 
 ```bash
-# Starts the demo MCP server on http://localhost:3000/mcp
+# Starts the demo MCP server on http://localhost:8000/mcp
 npm run server:dev
 ```
 
@@ -88,7 +88,7 @@ Helper prompt for generating cclocation_data.json (used during manual workflows)
 
 Set these environment variables in your '.env' file:
 
-- PORT — Optional. Port the demo server listens on. Default used by the code is `3000` when PORT is not set.
+- PORT — Optional. Port the demo server listens on. Default used by the code is `8000` when PORT is not set.
 - MP_INSTANCE_ID — Metro Publisher instance id
 - MP_API_KEY / MP_API_SECRET — API credentials for your Metro Publisher instance.
 - GEONAME_USERNAME — GeoNames username used by `get_geoname_data` to get a geoname_id for a location. The geoname is required to add locations to metropublisher. You can sign up for geonames.org here: https://www.geonames.org/login

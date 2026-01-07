@@ -1,5 +1,5 @@
-import { config } from "dotenv";
-config();
+import * as dotenv from "dotenv";
+dotenv.config({ quiet: true });
 
 const MP_INSTANCE_ID = process.env.MP_INSTANCE_ID;
 const MP_API_KEY = process.env.MP_API_KEY || "";
@@ -56,7 +56,7 @@ const getToken = async (data: tokenData) => {
     headers: headers,
     body: encData,
   });
-  console.log("Token fetch result:", result);
+  console.error("Token fetch result:", result);
   const response = await result.text();
   const json = JSON.parse(response);
   return json;
@@ -82,14 +82,14 @@ export const retryFetch = async (
     // we need to get a new access token
     const token = await getToken(data);
     access_token = token.access_token;
-    console.log("Getting new access token", access_token);
+    console.error("Getting new access token", access_token);
   } else {
-    console.log("Using existing access token");
+    console.error("Using existing access token");
   }
 
   while (attempt <= 5) {
     const auth_header = `bearer ${access_token}`;
-    console.log("ATTEMPT", attempt, fullUrl, method, auth_header);
+    console.error("ATTEMPT", attempt, fullUrl, method, auth_header);
     const headers = {
       Authorization: auth_header,
       "Content-Type": contentType,
@@ -103,12 +103,12 @@ export const retryFetch = async (
     if (method !== "GET" && method !== "HEAD" && body !== undefined) {
       options.body = body;
     }
-    console.log("Fetch options:", options);
-    console.log("Fetching URL:", fullUrl);
+    console.error("Fetch options:", options);
+    console.error("Fetching URL:", fullUrl);
     const result = await fetch(fullUrl, options);
     if (result.status === 200) {
       const data = await result.json();
-      console.log("Fetch successful data:", data);
+      console.error("Fetch successful data:", data);
       return data;
     }
     if (result.status === 401) {
@@ -117,7 +117,7 @@ export const retryFetch = async (
     }
     // we only retry the request for unauthoriesed (401) or temporary unavailable (503)
     if ([401, 503].indexOf(result.status) === -1) {
-      //   console.log("Not retriable result status.", result.status);
+      //   console.error("Not retriable result status.", result.status);
       throw new Error("Could not connect to the API.");
     }
     attempt += 1;

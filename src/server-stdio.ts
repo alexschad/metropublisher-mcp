@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { getLocationsTool } from "./tools/getLocations.js";
 import { getLocationDetailsTool } from "./tools/getLocationDetails.js";
 import { addLocationTool } from "./tools/addLocation.js";
@@ -11,9 +11,6 @@ import { createLocationDataPrompt } from "./prompts/createLocationData.js";
 import * as dotenv from "dotenv";
 dotenv.config({ quiet: true });
 
-const express = require("express");
-
-// MCP SERVER
 const mcpServer = new McpServer({
   name: "metropublisher-api",
   version: "1.0.0",
@@ -31,31 +28,8 @@ exportLocationsPrompt(mcpServer);
 getGeonameDataPrompt(mcpServer);
 createLocationDataPrompt(mcpServer);
 
-// Set up Express and HTTP transport
-const app = express();
-app.use(express.json());
+// Use stdio transport for Claude Desktop
+const transport = new StdioServerTransport();
+await mcpServer.connect(transport);
 
-app.post("/mcp", async (req: any, res: any) => {
-  // Create a new transport for each request to prevent request ID collisions
-  const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: undefined,
-    enableJsonResponse: true,
-  });
-
-  res.on("close", () => {
-    transport.close();
-  });
-
-  await mcpServer.connect(transport);
-  await transport.handleRequest(req, res, req.body);
-});
-
-const port = parseInt(process.env.PORT || "3000");
-app
-  .listen(port, () => {
-    console.error(`Demo MCP Server running on http://localhost:${port}/mcp`);
-  })
-  .on("error", (error: any) => {
-    console.error("Server error:", error);
-    process.exit(1);
-  });
+console.error("MCP Server running with stdio transport");

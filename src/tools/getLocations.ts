@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { retryFetch } from "../util";
+import { retryFetch } from "../util.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 const outputSchema = {
