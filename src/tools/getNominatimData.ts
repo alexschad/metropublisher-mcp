@@ -26,9 +26,9 @@ export const getNominatimDataTool = (server: McpServer) => {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
-        console.log("Nominatim Result:", result);
+        console.error("Nominatim Result:", result);
         const data = await result.json();
-        console.log("Nominatim Data:", data);
+        console.error("Nominatim Data:", data);
         const latitude = data.length > 0 ? parseFloat(data[0].lat) : null;
         const longitude = data.length > 0 ? parseFloat(data[0].lon) : null;
         return {
