@@ -4,14 +4,17 @@ import { getLocationsTool } from "./tools/getLocations.js";
 import { getLocationDetailsTool } from "./tools/getLocationDetails.js";
 import { addLocationTool } from "./tools/addLocation.js";
 import { getGeonameDataTool } from "./tools/getGeonameData.js";
+import { getContentTool } from "./tools/getContent.js";
+import { getContentDetailsTool } from "./tools/getContentDetail.js";
 import { exportLocationsPrompt } from "./prompts/exportLocations.js";
 import { getGeonameDataPrompt } from "./prompts/getGeoData.js";
 import { getNominatimDataTool } from "./tools/getNominatimData.js";
 import { createLocationDataPrompt } from "./prompts/createLocationData.js";
+import { exportContentPrompt } from "./prompts/exportContent.js";
+import express from "express";
 import * as dotenv from "dotenv";
-dotenv.config({ quiet: true });
 
-const express = require("express");
+dotenv.config({ quiet: true });
 
 // MCP SERVER
 const mcpServer = new McpServer({
@@ -25,11 +28,14 @@ getLocationDetailsTool(mcpServer);
 addLocationTool(mcpServer);
 getGeonameDataTool(mcpServer);
 getNominatimDataTool(mcpServer);
+getContentTool(mcpServer);
+getContentDetailsTool(mcpServer);
 
 // Add Prompts
 exportLocationsPrompt(mcpServer);
 getGeonameDataPrompt(mcpServer);
 createLocationDataPrompt(mcpServer);
+exportContentPrompt(mcpServer);
 
 // Set up Express and HTTP transport
 const app = express();
@@ -50,7 +56,7 @@ app.post("/mcp", async (req: any, res: any) => {
   await transport.handleRequest(req, res, req.body);
 });
 
-const port = parseInt(process.env.PORT || "3000");
+const port = parseInt(process.env.PORT || "8000");
 app
   .listen(port, () => {
     console.error(`Demo MCP Server running on http://localhost:${port}/mcp`);

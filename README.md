@@ -76,13 +76,21 @@ Get Latitude and Longitude for a location name from Nominatim.
 
 ## Available Prompts
 
-### exportLocations
+### export_mp_locations
 
-Wrapper to fetch, collect and format locations into an export
+Prompt to fetch, collect and format metropublisher locations into file with a selected format.
 
-### createLocationData
+### create_location_data
 
-Helper prompt for generating cclocation_data.json (used during manual workflows)
+Helper prompt for generating formatted location data using the get_nominatim_data tool to get geolocation data.
+
+### get_geoname_data
+
+Prompt to use the get_geoname_data tool to get Geolocation data for a location.
+
+### export_mp_content
+
+Prompt to fetch, collect and format metropublisher content into file with a selected format.
 
 ## Environment variables (.env)
 
