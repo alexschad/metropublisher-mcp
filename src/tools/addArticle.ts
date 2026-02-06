@@ -21,8 +21,80 @@ const outputSchema = {
   }),
 };
 
-function cleanString(str: string): string {
-  return str.replace(/\n/g, ""); // remove newline
+function isHeading(line: string): boolean {
+  const maxChars = 60; // short lines only
+  const maxWords = 8; // headings are usually brief
+  const sentenceEnd = /[.!?]$/;
+
+  const words = line.split(/\s+/);
+
+  return (
+    line.length <= maxChars &&
+    words.length <= maxWords &&
+    !sentenceEnd.test(line)
+  );
+}
+
+function formatToHtml(input: string): string {
+  if (!input || typeof input !== "string") return "";
+
+  const text = input.replace(/\r\n/g, "\n").trim();
+  const blocks = text.split(/\n\s*\n+/);
+
+  const html = [];
+
+  for (const block of blocks) {
+    const lines = block
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    if (lines.length === 0) continue;
+
+    // Detect unordered list
+    if (lines.every((l) => /^[-*]\s+/.test(l))) {
+      html.push(
+        `<ul>\n` +
+          lines
+            .map((l) => `<li>${escapeHtml(l.replace(/^[-*]\s+/, ""))}</li>`)
+            .join("\n") +
+          `\n</ul>`,
+      );
+      continue;
+    }
+
+    // Detect ordered list
+    if (lines.every((l) => /^\d+\.\s+/.test(l))) {
+      html.push(
+        `<ol>\n` +
+          lines
+            .map((l) => `<li>${escapeHtml(l.replace(/^\d+\.\s+/, ""))}</li>`)
+            .join("\n") +
+          `\n</ol>`,
+      );
+      continue;
+    }
+
+    // Single line → h4
+    if (lines.length === 1 && isHeading(lines[0])) {
+      html.push(`<h4>${escapeHtml(lines[0])}</h4>`);
+      continue;
+    }
+
+    // Multi-line → paragraph
+    html.push(`<p>${escapeHtml(lines.join(" "))}</p>`);
+  }
+
+  return html.join("\n");
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 export const addArticleTool = (server: McpServer) => {
@@ -55,7 +127,7 @@ export const addArticleTool = (server: McpServer) => {
         content_type: "article",
         state: "draft",
         description: description || null,
-        content: cleanString(content as string) || null,
+        content: formatToHtml(content as string) || null,
         sub_title: sub_title || null,
         meta_title: meta_title || null,
         meta_description: meta_description || null,
