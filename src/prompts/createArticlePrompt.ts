@@ -42,9 +42,9 @@ Write in a professional, informative, and engaging tone
 Avoid filler text; ensure depth, clarity, and coherence
 The content field must contain at least 1000 words.
 Empty tags should be self closing.
-The Content should be html formatted folling this RelaxRNG Schema:
 Don't escape quotes in the content field, they will be escaped when the article is added using the add_mp_article tool.
 Don't escape newlines in the content field, they will be preserved when the article is added using the add_mp_article tool.
+The Content should be html formatted folling this RelaxRNG Schema:
 html_text = text* &
             element u { html_text }* &
             element strong { html_text }* &
