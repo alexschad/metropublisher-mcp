@@ -41,40 +41,6 @@ Use a clear introduction, multiple body sections, and a strong conclusion
 Write in a professional, informative, and engaging tone
 Avoid filler text; ensure depth, clarity, and coherence
 The content field must contain at least 1000 words.
-Empty tags should be self closing.
-Don't escape quotes in the content field, they will be escaped when the article is added using the add_mp_article tool.
-Don't escape newlines in the content field, they will be preserved when the article is added using the add_mp_article tool.
-The Content should be html formatted folling this RelaxRNG Schema:
-html_text = text* &
-            element u { html_text }* &
-            element strong { html_text }* &
-            element em { html_text }* &
-            element sub { html_text }* &
-            element sup { html_text }* &
-            element cite { html_text }* &
-            element mark { html_text }* &
-            element s { html_text }* &
-            element small { html_text }* &
-            element q { html_text }* &
-            element wbr { empty }* &
-            element a { html_text,
-                         attribute href { text },
-                         attribute title { text }?
-                      }*
-
-html_paragraphs = element p { html_text }* &
-                  element h4 { html_text }* &
-                  element h5 { html_text }* &
-                  element h6 { html_text }* &
-                  element hr { empty }* &
-                  element pre { html_text }* &
-                  element blockquote { element p { html_text }* &
-                                       element pre { html_text }* &
-                                       element ul { element li { html_text }* }* &
-                                       element ol { element li { html_text }* }*
-                                      }* &
-                  element ul { element li { html_text }* }* &
-                  element ol { element li { html_text }* }*
 
 Output rules:
 Do not include explanations or comments
