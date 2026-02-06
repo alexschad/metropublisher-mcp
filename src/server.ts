@@ -6,11 +6,13 @@ import { addLocationTool } from "./tools/addLocation.js";
 import { getGeonameDataTool } from "./tools/getGeonameData.js";
 import { getContentTool } from "./tools/getContent.js";
 import { getContentDetailsTool } from "./tools/getContentDetail.js";
+import { addArticleTool } from "./tools/addArticle.js";
 import { exportLocationsPrompt } from "./prompts/exportLocations.js";
 import { getGeonameDataPrompt } from "./prompts/getGeoData.js";
 import { getNominatimDataTool } from "./tools/getNominatimData.js";
 import { createLocationDataPrompt } from "./prompts/createLocationData.js";
 import { exportContentPrompt } from "./prompts/exportContent.js";
+import { createArticlePrompt } from "./prompts/createArticlePrompt.js";
 import express from "express";
 import * as dotenv from "dotenv";
 
@@ -30,12 +32,14 @@ getGeonameDataTool(mcpServer);
 getNominatimDataTool(mcpServer);
 getContentTool(mcpServer);
 getContentDetailsTool(mcpServer);
+addArticleTool(mcpServer);
 
 // Add Prompts
 exportLocationsPrompt(mcpServer);
 getGeonameDataPrompt(mcpServer);
 createLocationDataPrompt(mcpServer);
 exportContentPrompt(mcpServer);
+createArticlePrompt(mcpServer);
 
 // Set up Express and HTTP transport
 const app = express();

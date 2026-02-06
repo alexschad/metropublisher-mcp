@@ -4,6 +4,7 @@ import { getLocationsTool } from "./tools/getLocations.js";
 import { getLocationDetailsTool } from "./tools/getLocationDetails.js";
 import { addLocationTool } from "./tools/addLocation.js";
 import { getGeonameDataTool } from "./tools/getGeonameData.js";
+import { addArticleTool } from "./tools/addArticle.js";
 import { getContentTool } from "./tools/getContent.js";
 import { getContentDetailsTool } from "./tools/getContentDetail.js";
 import { exportLocationsPrompt } from "./prompts/exportLocations.js";
@@ -11,6 +12,7 @@ import { getGeonameDataPrompt } from "./prompts/getGeoData.js";
 import { getNominatimDataTool } from "./tools/getNominatimData.js";
 import { createLocationDataPrompt } from "./prompts/createLocationData.js";
 import { exportContentPrompt } from "./prompts/exportContent.js";
+import { createArticlePrompt } from "./prompts/createArticlePrompt.js";
 import * as dotenv from "dotenv";
 dotenv.config({ quiet: true });
 
@@ -27,12 +29,14 @@ getGeonameDataTool(mcpServer);
 getNominatimDataTool(mcpServer);
 getContentTool(mcpServer);
 getContentDetailsTool(mcpServer);
+addArticleTool(mcpServer);
 
 // Add Prompts
 exportLocationsPrompt(mcpServer);
 getGeonameDataPrompt(mcpServer);
 createLocationDataPrompt(mcpServer);
 exportContentPrompt(mcpServer);
+createArticlePrompt(mcpServer);
 
 // Use stdio transport for Claude Desktop
 const transport = new StdioServerTransport();
